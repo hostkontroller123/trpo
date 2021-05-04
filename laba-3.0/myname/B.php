@@ -1,29 +1,15 @@
 <?php
+include "EquationInterface.php";
+include "A.php";
+use core\EquationInterface;
 
-class A {
-    protected $x;
+namespace ivanenko;
 
-    
-    public function __construct() {
-    }
-
-    
-    public function linear_equation($a, $b) {
-        if($a == 0) {
-            throw new ZeroDivisionException();
-        } else {
-            $this->x = (- $b) / $a;
-            return $this->x;
-        }
-    }
-    
-    public function get_x() {
-        return $this->x;
-    }
-
+class NoRootException extends RuntimeException {
 }
 
-class B extends A {
+
+class B extends A implements EquationInterface {
     protected $a;
     private $x2;
 
@@ -57,25 +43,14 @@ class B extends A {
     public function get_x2() {
         return $this->x2;
     }
-}
-
-class C extends B {
-    protected $b;
-
-    public function __construct($b3, $b4) {
-        $this->a = $b3;
-        $this->b = $b4;
+    
+    public function solve($a, $b, $c) {
+        $ret["x1"] = $this->quadratic_equation($a, $b, $c);
+        $ret["x2"] = get_x2();
+        return $ret;
     }
 }
 
 
-
-$a1 = new A();
-$b2 = new B($a1);
-$b3 = new B($a1);
-$b4 = new B($b2);
-$c5 = new C($b3, $b4);
-
-
-?>
-
+?> 
+ 
